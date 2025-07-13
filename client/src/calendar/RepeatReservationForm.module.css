@@ -1,0 +1,68 @@
+.wrapper {
+    font-weight: 400;
+}
+
+.dates {
+    margin-top: 10px;
+}
+
+.dates > * {
+    display: block;
+    margin-left: 0!important;
+    height: 32px;
+    line-height: 32px;
+}
+
+.dates .extra {
+    font-size: 13px;
+    font-style: italic;
+}
+
+.dates .unchecked .date {
+    text-decoration: line-through;
+}
+
+.dateButton,
+.dateButton:hover,
+.dateButton:focus,
+.dateButton:active {
+    color: #333;
+}
+
+.dateButton:hover {
+    opacity: 0.7;
+}
+
+.dateButton[disabled],
+.dateButton[disabled]:hover,
+.dateButton[disabled]:focus,
+.dateButton[disabled]:active {
+    color: #888;
+}
+
+.dates .danger,
+.dates .danger .date,
+.dates .danger .extra,
+.danger .dateButton, 
+.danger .dateButton:hover,
+.danger .dateButton:focus,
+.danger .dateButton:active {
+    color: #ff4d4f;
+}
+
+.dateButton {
+    height: auto;
+    padding: 0;
+}
+
+.dateButton > span + span {
+    margin-left: 10px;
+}
+
+.buttons {
+    margin-top: 10px;
+}
+.buttons > * {
+    margin-right: 10px;
+    min-width: 120px;
+}

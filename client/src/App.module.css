@@ -1,0 +1,15 @@
+.content {
+    /* navbar 64px */
+    margin: 64px auto 0;
+    border-radius: 2px;
+    max-width: 100%;
+}
+
+.footer {
+    text-align: center;
+    overflow: hidden;
+}
+
+.announcement {
+    white-space: pre-wrap;
+}

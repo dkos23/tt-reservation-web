@@ -1,0 +1,22 @@
+.wrapper {
+    width: 100vw;
+    padding: 20px;
+    margin-top: 20px;
+    background: #fff;
+}
+
+@media (min-width: 560px) {
+    .wrapper {
+        width: 560px;
+    }
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+.buttons > * {
+    display: block;
+    text-align: center;
+    margin: 10px auto 0;
+}

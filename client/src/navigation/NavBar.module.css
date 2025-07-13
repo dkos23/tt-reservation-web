@@ -1,0 +1,66 @@
+.header {
+    background: #fff;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    width: 100vw;
+    /* set max-width via padding */
+    padding: 0 calc((100vw - 1500px) / 2);
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* simulate inner padding */
+.header:before {
+    content: "";
+    padding-left: 30px;
+}
+.header:after {
+    content: "";
+    padding-right: 30px;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    margin-right: 1em;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.title .orgName {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin: 0;
+    white-space: nowrap;
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.horizontalMenuWrapper {
+    display: none;
+}
+
+.drawerMenuWrapper {
+    flex: 1;
+    text-align: right;
+}
+
+.drawer :global(.ant-drawer-body) {
+    padding: 0;
+}
+
+@media (min-width: 950px) {
+    .horizontalMenuWrapper {
+        display: flex;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .drawerMenuWrapper {
+        display: none;
+    }
+}

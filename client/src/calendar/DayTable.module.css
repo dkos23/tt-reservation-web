@@ -1,0 +1,74 @@
+.wrapper {
+    padding: 0 5px;
+    border-left: 1px solid #ddd;
+    position: relative;
+    text-align: center;
+}
+
+.col,
+.col * {
+    user-select: none;
+}
+
+.cols {
+    display: flex;
+}
+
+.date {
+    position: relative;
+    font-weight: 600;
+}
+
+.date .today {
+    color: white;
+    background: #1890ff;
+    border-radius: 2px;
+    padding: 1px 4px;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+.court {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 2px auto;
+}
+
+.body {
+    position: relative;
+}
+
+.blur {
+    filter: blur(3px);
+}
+
+.infoOverlay {
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+    background: #ffffffaa;
+}
+
+.linkButton {
+    white-space: normal;
+    height: auto;
+}
+
+.adminAction button  {
+    font-size: 13px;
+    color: rgba(0,0,0,.45);
+}

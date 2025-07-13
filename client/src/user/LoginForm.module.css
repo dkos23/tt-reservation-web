@@ -1,0 +1,12 @@
+.loginButton {
+    width: 100%;
+}
+
+.forgotLink {
+    float: right;
+}
+
+.registerItem {
+    text-align: center;
+    margin-bottom: 0;
+}

@@ -1,0 +1,29 @@
+.menu {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu,
+.menu * {
+    user-select: none;
+}
+
+.horizontal {
+    flex-direction: row;
+}
+
+.stretch {
+    flex: 1;
+}
+
+.menuButton {
+    margin: 8px 0 8px 24px;
+    align-self: center;
+}
+
+.menuButton.horizontal {
+    margin-left: 20px;
+}

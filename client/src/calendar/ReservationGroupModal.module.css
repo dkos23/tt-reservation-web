@@ -1,0 +1,26 @@
+.wrapper > * {
+    margin-bottom: 20px;
+}
+
+.wrapper > *:last-child {
+    margin-bottom: 0;
+}
+
+.footer button {
+    margin-top: 5px;
+}
+
+.heading {
+    margin-top: 5px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.changeReasonHint {
+    margin-top: 5px;
+    font-style: italic;
+}
+
+.cancelRadioGroup {
+    font-size: 14px; /* needed to display ul elements */
+}

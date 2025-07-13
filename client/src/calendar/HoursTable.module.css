@@ -1,0 +1,41 @@
+.wrapper {
+    padding-top: 48px;
+    background: #fff;
+    border-right: 1px solid #ddd;
+    white-space: nowrap;
+}
+
+.wrapper,
+.wrapper * {
+    user-select: none;
+}
+
+.hour {
+    height: 38px;
+    font-weight: 600;
+    line-height: 13px;
+    padding: 6px 8px;
+}
+
+.hour .to {
+    color: #bbb;
+    font-size: 11px;
+}
+
+.hour.highlight,
+.hour.highlight .to {
+    color: #1890ff;
+}
+
+.highlight::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-top: -20px;
+    height: 40px;
+    z-index: 0;
+    border-radius: 2px;
+    background: #1890ff;
+    opacity: .25;
+}

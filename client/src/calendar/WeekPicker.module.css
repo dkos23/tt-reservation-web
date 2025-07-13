@@ -1,0 +1,58 @@
+.wrapper.wrapper {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.wrapper {
+    text-align: center;
+    width: 320px;
+}
+
+.middlePicker {
+    display: flex;
+    align-items: center;
+}
+
+.outerThisWeekButton {
+    display: none;
+}
+
+.picker {
+    display: block;
+    width: 310px;
+    margin: 5px;
+}
+
+.leftButton,
+.rightButton {
+    width: 150px;
+    height: 35px;
+    overflow: hidden;
+    padding: 0;
+    margin: 5px;
+}
+
+
+@media (min-width: 750px) {
+    .wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .leftButton,
+    .rightButton {
+        margin: 0 30px;
+    }
+
+    .leftButton {
+        order: -1;
+    }
+}
+
+@media (min-width: 900px) {
+    .outerThisWeekButton {
+        display: initial;
+    }
+}

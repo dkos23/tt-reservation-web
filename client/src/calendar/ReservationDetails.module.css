@@ -1,0 +1,32 @@
+.inline.wrapper {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.inline .item {
+    margin: 0 10px;
+    margin: 5px 10px;
+}
+
+.item {
+    white-space: nowrap;
+}
+
+.wrapper:not(.inline) .item + .item {
+    margin-top: 14px;
+}
+
+.item .title {
+    display: inline-block;
+    color: #444;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 5px;
+}
+
+.item .content {
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: 600;
+}

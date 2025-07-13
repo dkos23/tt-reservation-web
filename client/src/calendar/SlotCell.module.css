@@ -1,0 +1,102 @@
+.cell {
+    cursor: default;
+    transition: all 1s ease;
+}
+
+.cell.enabled,
+.cell.alwaysClickable {
+    cursor: pointer;
+}
+
+.slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color .3s ease;
+    position: relative;
+    width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 7px 5px;
+    border-radius: 2px;
+    background: #b7d9a6;
+    color: #fff;
+    font-size: 12px;
+    margin: 0 auto;
+}
+
+.text {
+    max-width: 100%;
+    max-height: 100%;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+.text.singleLine {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.cell:not(.enabled) .slot {
+    background: #d0d0d0;
+}
+
+.cell:not(.enabled) .slot.reserved {
+    background: #bbb;
+}
+
+.cell.enabled:hover .slot:not(.reserved) {
+    background: #9dc88d;
+}
+
+.cell.enabled .slot:not(.reserved)::after {
+    content: attr(data-free-text);
+}
+
+.cell.enabled:hover .slot:not(.reserved)::after {
+    content: attr(data-free-text-hover);
+}
+
+.reserved {
+    opacity: 1;
+    color: #fff;
+    background: #FF4136;
+}
+
+.reserved.mine {
+    background: #1890ff;
+}
+
+.slot::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.000001;
+    background: #ddd;
+}
+
+.slot.loading::before {
+    opacity: 1;
+    animation: load 2s linear infinite;
+}
+
+.slot:not(.loading)::before {
+    transition: all .2s ease;
+}
+
+@keyframes load {
+    0% {
+        background: #ddd;
+    }
+    50% {
+        background: #bbb;
+    }
+    100% {
+        background: #ddd;
+    }
+}

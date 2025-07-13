@@ -1,0 +1,29 @@
+.wrapper {
+    padding: 15px 0;
+    background: #fff;
+    /* fake padding with box-shadow
+        cause it does not take up space 
+        and is not scrollable */
+    box-shadow: 30px 0 #fff, -30px 0 #fff;
+    border-radius: 2px;
+}
+
+.tableWrapper {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    padding: 15px 0;
+}
+
+.tableWrapper table {
+    border-collapse: collapse;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 14px;
+}
+
+.tableScroller {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
