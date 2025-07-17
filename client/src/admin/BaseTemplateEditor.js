@@ -24,8 +24,8 @@ export function BaseTemplateEditor({
         && (!hasSubject || subject === initialSubject);
 
     const save = useCallback(() => {
-        // check if value only consists of empty tags
-        const cleanBody = body.match(/<.*?>([^<>]+)<.*?>/gim) ? body : '';
+        // const cleanBody = body.match(/<.*?>([^<>]+)<.*?>/gim) ? body : '';
+        const cleanBody = (body || '').trim();
         onSave({
             cleanBody,
             subject,

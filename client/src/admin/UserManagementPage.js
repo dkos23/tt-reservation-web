@@ -1,7 +1,7 @@
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MailOutlined } from '@ant-design/icons';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
-import { deleteUserApi, getUsersApi, patchUserApi } from '../api';
+import { deleteUserApi, getUsersApi, patchUserAdminApi } from '../api';
 
 import { ErrorResult } from '../ErrorResult';
 import { authContext } from '../AuthContext';
@@ -15,7 +15,7 @@ export function UserManagementPage() {
     const [users, setUsers] = useState([]);
     const [getState,] = useApi(getUsersApi, setUsers, true);
     const [deleteState, deleteUser] = useApi(deleteUserApi, setUsers);
-    const [putState, patchUser] = useApi(patchUserApi, setUsers);
+    const [putState, patchUser] = useApi(patchUserAdminApi, setUsers);
 
     // key prop is required for antd
     const keyedUsers = useMemo(() => users.map(u => ({ ...u, key: u.userId })), [users]);

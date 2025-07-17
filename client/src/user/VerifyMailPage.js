@@ -11,7 +11,7 @@ import { useApi } from '../useApi';
 
 export function VerifyMailPage() {
 
-    const { user, setUser } = useContext(authContext);
+    const { user, logout, setUser } = useContext(authContext);
     const navigate = useNavigate();
     const { verifyToken } = useParams();
 
@@ -28,20 +28,49 @@ export function VerifyMailPage() {
         navigate('/profile');
     }, [navigate]);
 
+    // const handleResendMail = useCallback(() => {
+    //     if (user?.mail) {
+    //         setResendClicked(true);
+    //         sendMail(null, { mail: user.mail });
+    //     }
+    // }, [sendMail, user.mail]);
+
     const handleResendMail = useCallback(() => {
+        if (!user?.mail) return;
         setResendClicked(true);
         sendMail(null, { mail: user.mail });
-    }, [sendMail, user.mail]);
+    }, [sendMail, user]);
+
+    // useEffect(() => {
+    //     if (send && user?.mail) {
+    //         sendMail(null, { mail: user.mail });
+    //     }
+    // }, [send, sendMail, user.mail]);
 
     useEffect(() => {
-        if (send)
+        if (send && user?.mail) {
+            console.log("✅ Sending verification email to:", user.mail);
             sendMail(null, { mail: user.mail });
-    }, [send, sendMail, user.mail]);
+        }
+    }, [send, sendMail, user]);
 
+    //LOG:
+    // useEffect(() => {
+    //     if (!send) {
+    //         console.log("📨 Calling verifyMail with token:", verifyToken);
+    //         verifyMail(null, { token: verifyToken });
+    //     }
+    // }, [send, verifyMail, verifyToken]);
     useEffect(() => {
-        if (!send)
-            verifyMail(null, { token: verifyToken });
-    }, [send, verifyMail, verifyToken]);
+        if (!send) {
+            verifyMail(null, { token: verifyToken }, () => {
+            console.log("✅ Email verified. Logging out user...");
+            // navigate('/profile'); // redirect to calendar or profile
+            logout();
+            });
+        }
+    }, [send, verifyMail, verifyToken, navigate]);
+
 
     if (send)
         return (
@@ -52,7 +81,7 @@ export function VerifyMailPage() {
                     extra={
                         <div>
                             <div>
-                                Es wurde soeben eine Mail mit einem Bestätigungslink an <strong>{user?.mail}</strong> versandt.
+                                Es wurde soeben eine Mail mit einem Bestätigungslink an <strong>{user?.mail || '...'}</strong> versandt.
                             </div>
                             <br />
                             <div>

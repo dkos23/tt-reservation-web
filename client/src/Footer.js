@@ -21,10 +21,10 @@ export function Footer({
             <p>
                 {`©${dayjs().format('YYYY')} ${orgName} - v${version} - entwickelt von `}
                 {/* {noLinks 
-                    ? <span>Alexander&nbsp;Droste</span>
-                    : <a target="_blank" rel="noopener noreferrer" href="https://github.com/adroste/tt-reservation-web-v2">Alexander&nbsp;Droste</a>
+                    ? <span>Alexander&nbsp;D</span>
+                    : <a target="_blank" rel="noopener noreferrer" href="https://github.com/dkos23/tt-reservation-web">Dalibor&nbsp;Kos</a>
                 } */}
-                <span>Alexander&nbsp;Droste + Dalibor Kos</span>
+                <span>Dalibor Kos</span>
             </p>
         </>
     );

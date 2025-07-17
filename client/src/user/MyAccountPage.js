@@ -61,12 +61,15 @@ export function MyAccountPage() {
                 </Button>
                 <div>Sie erhalten eine Mail mit einer Übersicht über alle Ihre gespeicherten Daten.</div>
             </div>
-            <div className={styles.buttonWrapper}>
+            {/* <div className={styles.buttonWrapper}>
                 <Button disabled>
                     Alle Daten löschen
                 </Button>
                 <Typography.Text type="danger">Diese Aktion kann nicht rückgängig gemacht werden.</Typography.Text>
                 <div>Es werden alle Ihre Daten (Reservierungen und Benutzerkonto) endgültig gelöscht.</div>
+            </div> */}
+            <div className={styles.wrapper}>
+                <div>Fordern Sie eine Löschung all Ihrer Daten per E-Mail an.</div>
             </div>
 
         </div>

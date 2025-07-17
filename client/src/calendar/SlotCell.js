@@ -65,7 +65,8 @@ export function SlotCell({
                 className={cn({
                     slot: true,
                     loading,
-                    reserved: reservation?.type === RESERVATION_TYPES.NORMAL,
+                    // reserved: reservation?.type === RESERVATION_TYPES.NORMAL,
+                    reserved: !!reservation && reservation.type !== RESERVATION_TYPES.DISABLE,
                     mine: user && user?.userId === reservation?.userId,
                 })}
                 style={{ height: SLOT_HEIGHT_PX * rowSpan + CELL_PADDING_PX * 2 * (rowSpan - 1) }}

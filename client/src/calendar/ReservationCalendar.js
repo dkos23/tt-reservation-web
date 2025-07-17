@@ -27,7 +27,7 @@ export function ReservationCalendar({
     const scrollerRef = useRef();
 
     const [reservations, setReservations] = useState(null);
-    const [state, getReservations] = useApi(getReservationsApi, setReservations); 
+    const [state, getReservations] = useApi(getReservationsApi, setReservations);
 
     const updateReservations = useCallback(() => getReservations({
         query: {
@@ -37,6 +37,13 @@ export function ReservationCalendar({
     }), [selectedDate, getReservations]);
 
     useUpdateEffect(updateReservations, UPDATE_INTERVALS_SEC.RESERVATIONS);
+
+    //LOG:
+    // useEffect(() => {
+    //     if (reservations) {
+    //         console.log("🔍 Reservations loaded into calendar:", reservations);
+    //     }
+    // }, [reservations]);
 
     useEffect(() => {
         setReservations(null);
@@ -79,6 +86,10 @@ export function ReservationCalendar({
     const handleReservationFinish = useCallback(() => {
         setSelectedSlot(null);
     }, []);
+    // const handleReservationFinish = useCallback(() => {
+    //     setSelectedSlot(null);
+    //     updateReservations();  // fetch updated reservations from backend
+    // }, [updateReservations]);
 
     if (state.error)
         return (

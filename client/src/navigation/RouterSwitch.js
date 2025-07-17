@@ -57,11 +57,13 @@ export function RouterSwitch() {
                         <MyAccountPage />
                     </ProtectedRoute>
                 } />
-                <Route path="/verify-mail/:verifyToken" element={
+                
+                <Route path="/verify-mail/:verifyToken" element={<VerifyMailPage />} />
+                {/* <Route path="/verify-mail/:verifyToken" element={
                     <ProtectedRoute>
                         <VerifyMailPage />
                     </ProtectedRoute>
-                } />
+                } /> */}
 
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>

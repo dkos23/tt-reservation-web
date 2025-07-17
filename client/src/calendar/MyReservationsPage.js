@@ -1,5 +1,5 @@
 import { Empty, Space } from 'antd';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useMemo, useState, useEffect } from 'react';
 
 import { Ball } from '../Ball';
 import { ErrorResult } from '../ErrorResult';
@@ -12,23 +12,38 @@ import { useApi } from '../useApi';
 import { useTime } from './useTime';
 
 export function MyReservationsPage() {
-
-    const { user: { userId } } = useContext(authContext);
+    const { user, autoLoginState } = useContext(authContext);
+    const userId = user?.userId;
 
     const time = useTime('hour');
     const [selectedReservation, setSelectedReservation] = useState();
 
-    const autoFetch = useMemo(() => ({
-        reqParams: {
-            query: {
-                'user-id': userId,
-                start: time.startOf('hour').toISOString(),
+    //LOG:
+    // useEffect(() => {
+    //     console.log("✅ userId =", userId);
+    //     console.log("⏳ autoLoginState.loading =", autoLoginState.loading);
+    // }, [userId, autoLoginState.loading]);
+
+    const autoFetch = useMemo(() => {
+        // if (!userId) return false;
+        if (!userId || autoLoginState.loading) return false;
+        return {
+            reqParams: {
+                query: {
+                    'user-id': userId,
+                    start: time.startOf('hour').toISOString(),
+                }
             }
-        }
-    }), [time, userId]);
+        };
+    }, [time, userId, autoLoginState.loading]);
 
     const [reservations, setReservations] = useState([]);
-    const [state,] = useApi(getReservationsApi, setReservations, autoFetch); 
+    const [state] = useApi(getReservationsApi, setReservations, autoFetch);
+
+    //LOG:
+    // useEffect(() => {
+    //     console.log("📥 Reservations loaded:", reservations);
+    // }, [reservations]);
 
     const sortedReservations = useMemo(() => {
         const s = [...reservations];
@@ -44,33 +59,42 @@ export function MyReservationsPage() {
         setSelectedReservation(null);
     }, []);
 
-    if (state.error)
-        return (
-            <div className={styles.wrapper}>
-                <ErrorResult />
-            </div>
-        );
-    
-    // length check prevents flickering when refetch
-    if (state.loading && !sortedReservations?.length)
+    if (!userId) {
         return (
             <div className={styles.wrapper}>
                 <Ball visible spin large centered />
             </div>
         );
+    }
+
+    if (state.error) {
+        return (
+            <div className={styles.wrapper}>
+                <ErrorResult />
+            </div>
+        );
+    }
+
+    if (state.loading && !sortedReservations?.length) {
+        return (
+            <div className={styles.wrapper}>
+                <Ball visible spin large centered />
+            </div>
+        );
+    }
 
     return (
         <div className={styles.wrapper}>
-            {!sortedReservations?.length &&
+            {!sortedReservations?.length && (
                 <div className={styles.content}>
                     <Empty
                         className={styles.empty}
                         description="Keine Reservierungen"
                     />
                 </div>
-            }
+            )}
 
-            {sortedReservations?.length > 0 &&
+            {sortedReservations?.length > 0 && (
                 <>
                     <h1>Nächste Reservierung</h1>
                     <div className={styles.content}>
@@ -80,37 +104,32 @@ export function MyReservationsPage() {
                         />
                     </div>
                 </>
-            }
+            )}
 
-            {sortedReservations?.length > 1 &&
+            {sortedReservations?.length > 1 && (
                 <>
                     <h1>Weitere Reservierungen</h1>
-
                     <div className={styles.content}>
                         <Space className={styles.cardList} direction="vertical">
-                            {sortedReservations.map((reservation, i) => {
-                                if (i === 0)
-                                    return null;
-                                return (
-                                    <ReservationDetailsCard
-                                        key={reservation.id}
-                                        reservation={reservation}
-                                        onEditClick={handleEditClick}
-                                    />
-                                );
-                            })}
+                            {sortedReservations.slice(1).map(reservation => (
+                                <ReservationDetailsCard
+                                    key={reservation.id}
+                                    reservation={reservation}
+                                    onEditClick={handleEditClick}
+                                />
+                            ))}
                         </Space>
                     </div>
                 </>
-            }
+            )}
 
-            {selectedReservation &&
+            {selectedReservation && (
                 <ReservationModal
                     reservation={selectedReservation}
                     onFinish={handleReservationEditFinish}
                     setReservations={setReservations}
                 />
-            }
+            )}
         </div>
     );
 }

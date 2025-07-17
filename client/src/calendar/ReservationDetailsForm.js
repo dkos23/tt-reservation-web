@@ -1,6 +1,6 @@
 import { Button, Input, Radio } from 'antd';
 import { DownOutlined, EditOutlined } from '@ant-design/icons';
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useState, useEffect } from 'react';
 
 import { DatePicker } from './DatePicker';
 import { RepeatReservationForm } from './RepeatReservationForm';
@@ -55,6 +55,18 @@ export function ReservationDetailsForm({
     const handleCourtIdChange = useCallback(e => {
         onCourtIdChange(e.target.value);
     }, [onCourtIdChange]);
+
+    useEffect(() => {
+      if (from && to && courtId && onReservationsChange) {
+        onReservationsChange([
+          {
+            from,
+            to,
+            courtId,
+          },
+        ]);
+      }
+    }, [from, to, courtId, onReservationsChange]);
 
     if (readOnly)
         return (

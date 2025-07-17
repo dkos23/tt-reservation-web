@@ -49,9 +49,11 @@ export function ReservationGroupModal({
     const newReservations = useMemo(() => reservations?.filter(
         r => !groupReservations.some(gr => gr.from.isSame(r.from, 'hour') && gr.to.isSame(r.to, 'hour'))
     ), [reservations, groupReservations]);
+
     const cancelReservations = useMemo(() => reservations && groupReservations.filter(
         gr => !reservations.some(r => r.from.isSame(gr.from, 'hour') && r.to.isSame(gr.to, 'hour'))
     ), [reservations, groupReservations]);
+    
     const changeText = !!(groupReservations && text);
 
     const unavailableReservations = useMemo(() => {

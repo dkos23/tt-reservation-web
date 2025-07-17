@@ -12,15 +12,20 @@ export function TemplateEditor({
 }) {
 
     const { templates, setTemplates } = useContext(appContext);
-    const { body } = templates[id];
+    // const { body } = templates[id];
+    const { body, subject } = templates[id] ?? {};
 
     const [state, putTemplate] = useApi(putTemplateApi, setTemplates);
 
     const save = useCallback(({ cleanBody }) => {
-        putTemplate({ path: { id } }, {
-            id,
-            body: cleanBody,
-        });
+        // putTemplate({ path: { id } }, {
+        //     id,
+        //     body: cleanBody,
+        // });
+        putTemplate(
+            { path: { key: id } },  // Correct parameter
+            { key: id, body: cleanBody, subject }  // Use 'key' instead of 'id'
+        );
     }, [id, putTemplate]);
 
     return (

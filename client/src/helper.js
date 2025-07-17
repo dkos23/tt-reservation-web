@@ -1,13 +1,20 @@
 export function findReservation(reservations, from, to, courtId) {
     if (!reservations)
         return null;
-    return reservations.find(r => reservationOverlap(r, { from, to, courtId }));
+    // return reservations.find(r => reservationOverlap(r, { from, to, courtId }));
+    const found = reservations.find(r => reservationOverlap(r, { from, to, courtId }));
+    // if (found) {
+    //     console.log("✅ Reservation matched for slot", {from: from.toISOString(), to: to.toISOString(), courtId });
+    // }
+    return found;
 }
 
 export function reservationOverlap(r1, r2) {
-    return r1.from.isBefore(r2.to, 'hour')
-        && r1.to.isAfter(r2.from, 'hour')
-        && r1.courtId === r2.courtId;
+    return (
+        r1.courtId === r2.courtId &&
+        r1.from.isBefore(r2.to) &&
+        r1.to.isAfter(r2.from)
+    );
 }
 
 export function getCourtName(courts, courtId) {

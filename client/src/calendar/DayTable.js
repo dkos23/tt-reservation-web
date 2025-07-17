@@ -48,6 +48,16 @@ export function DayTable({
         });
     };
 
+    // LOG: 
+    // useEffect(() => {
+    //     console.log('📅 DayTable Debug:', {
+    //         date: date.format(),
+    //         courts,
+    //         reservations,
+    //         rows,
+    //     });
+    // }, [date, courts, reservations, rows]);
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.date}>
@@ -83,7 +93,8 @@ export function DayTable({
                                 to={to}
                                 baseRowSpan={span}
                                 disabled={from.isBefore(now, 'hour')}
-                                key={from}
+                                // key={from}
+                                key={`${courtId}-${from.toISOString()}`}
                                 loading={loading}
                                 onClick={onSlotClick}
                                 reservation={findReservation(reservations, from, to, courtId)}
