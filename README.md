@@ -1,27 +1,26 @@
-# Tennis Court Reservation System v2
+# Table Tennis Court Reservation System
 
-**WICHTIG: Dieses Projekt befindet sich noch in der Entwicklung. Bei Interesse bitte per E-Mail  wenden.**
+**WICHTIG: Dieses Projekt befindet sich noch in der Entwicklung.**
 
-*React SPA, PHP 7, MySQL*
+*React SPA,, PostgeSQL*
 
 *License: AGPL*
 
-🇺🇸 Free, modern, open source tennis court reservation system that works on any cheap web-hosting plan. *GDPR compliant*
+🇺🇸 Modern, open source tennis court reservation system that works on any cheap web-hosting plan. *GDPR compliant*
 
-🇩🇪 Kostenloses, modernes, Open Source Tennisplatz Reservierungssystem, das mit jedem günstigen Web-Hosting Anbieter funktioniert. *DSGVO konform*
-
-
+🇩🇪 Modernes, Open Source Tennisplatz Reservierungssystem, das mit jedem günstigen Web-Hosting Anbieter funktioniert. *DSGVO konform*
 
 ## Languages / Sprachen
 
 * [x] German / Deutsch
 * [ ] English (planned)
 
-## Demo
-
 &nbsp;
 
-# 🇩🇪
+---
+---
+
+# DE:
 
 ## Funktionen
 
@@ -32,20 +31,22 @@
 ## Systemanforderungen
 
 * Web-Server (Apache, nginx, ...)
-* PHP 7
-* MySQL Datenbank
+* PostgreSQL Datenbank
 
 ## Datenverbrauch im Kioskmodus
 
 Im Kioskmodus wird die Tabelle mit den Reservierungen automatisch aktualisiert.
-Im Regelfall ist eine solche Anfrage < 10kB. 
+Im Regelfall ist eine solche Anfrage < 10kB.
 Das Zeitintervall für die Aktualisierungen kann manuell angegeben werden, indem der Kioskmodus mittels `/kiosk?update=x` aufgerufen wird. `x` gibt hierbei die Anzahl der Sekunden an. Der Standardwert ist eine Minute.
 
 Beispiel (x=300): Bei einem Durchschnitt von 10kB pro Anfrage ergibt sich für ein Aktualisierungsintervall von `x=300` (5 Minuten) ein Datenverbrauch von ca. 3MB pro Tag.
 
 &nbsp;
 
-# 🇺🇸
+---
+---
+
+# EN:
 
 ## Features
 
@@ -56,8 +57,7 @@ Beispiel (x=300): Bei einem Durchschnitt von 10kB pro Anfrage ergibt sich für e
 ## System requirements
 
 * Web-Server (Apache, nginx, ...)
-* PHP 7
-* MySQL Database
+* PostgreSQL Database
 
 &nbsp;
 
