@@ -4,6 +4,7 @@ import { UPDATE_INTERVALS_SEC } from './updateIntervals';
 import dayjs from 'dayjs';
 import deepEqual from 'deep-equal';
 import { getBaseDataApi } from './api';
+import { getTemplatesApi } from './api';
 import { useApi } from './useApi';
 import { useUpdateEffect } from './useUpdateEffect';
 
@@ -11,34 +12,24 @@ export const appContext = React.createContext();
 
 export function AppContextProvider({ children }) {
 
-    // const [config, setConfig] = useState();
-    const [config, setConfig] = useState({
-        timeZone: "Europe/Berlin",
-        announcement: "Willkommen zur Tennisplatz Reservierung!",
-    });
+    const [config, setConfig] = useState();
     const [courts, setCourts] = useState();
     const [templates, setTemplates] = useState();
 
-    
+    const [getTemplatesState, getTemplates] = useApi(getTemplatesApi, setTemplates, true);
 
+    useEffect(() => {
+        console.log('Fetching templates...');
+        getTemplates();
+    }, [getTemplates]);
 
-    // const setBaseData = useCallback(getResult => {
-    //     console.log("Fetching Base Data...");
-    //     const result = getResult(null);
-    //     console.log("Base Data Response:", result);
-
-    //     const { config, courts, templates } = getResult(null);
-
-    //     console.log("AppContext - config: " + JSON.stringify(config,null,2));
-
-    //     setConfig(cur => deepEqual(cur, config) ? cur : config);
-    //     setTemplates(cur => deepEqual(cur, templates) ? cur : templates);
-    //     setCourts(cur => deepEqual(cur, courts) ? cur : courts);
-    // }, []);
+    useEffect(() => {
+        // console.log("📦 Received templates:", templates);
+        console.log("📦 Received templates");
+    }, [templates]);
 
     const setBaseData = useCallback(getResult => {
-        console.log("Fetching Base Data...");
-        const result = getResult(null);
+        const result = getResult();
     
         // console.log("✅ Base Data Response:", result);
     
@@ -48,10 +39,6 @@ export function AppContextProvider({ children }) {
         }
     
         const { config, courts, templates } = result;
-    
-        // console.log("📌 AppContext - config:", config);
-        // console.log("📌 AppContext - courts:", courts);
-        // console.log("📌 AppContext - templates:", templates);
     
         if (!config) {
             console.warn("🚨 Config is missing in API response!");
@@ -64,14 +51,14 @@ export function AppContextProvider({ children }) {
     }, []);
 
     const [getBaseDataState, getBaseData] = useApi(getBaseDataApi, setBaseData, true);
-    console.log("useApi() initialized in AppContext.js, waiting for API call...");
-    useUpdateEffect(getBaseData, UPDATE_INTERVALS_SEC.BASE_DATA);
 
-    // TODO Debug:
     useEffect(() => {
         console.log("Fetching initial base data...");
-        getBaseData();
+        getBaseData();  // manually triggers API fetch
     }, [getBaseData]);
+
+    console.log("useApi() initialized in AppContext.js, waiting for API call...");
+    useUpdateEffect(getBaseData, UPDATE_INTERVALS_SEC.BASE_DATA);
 
     useEffect(() => {
         dayjs.tz.setDefault(config?.timeZone);

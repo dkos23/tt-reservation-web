@@ -81,7 +81,7 @@ function App() {
             />
           </Routes>
 
-          {demoMode && <DemoControls />}
+          {/* {demoMode && <DemoControls />} */}
         </Suspense>
       </Layout>
   );

@@ -33,6 +33,7 @@ dayjs.extend(isSameOrBefore);
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.locale('de');
+dayjs.tz.setDefault('Europe/Berlin');
 
 function renderApp() {
     const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -51,7 +52,7 @@ function renderApp() {
 }
 
 // ✅ Ensure Mock API is Enabled in Demo Mode
-if (process.env.REACT_APP_DEMO) {
+if (process.env.REACT_APP_DEMO === 'true') {
     console.log("🟢 Demo mode enabled. Initializing mock API...");
     import('./demo/mockApi').then(mockApi => {
         mockApi.patchFetch();

@@ -13,6 +13,7 @@ export function useApi(
         // res must return new state
         // signature: ({ cur, params, req, res }) => updatedData
         setFunc = defaultSetFunc,
+        prepareBody = null,
     },
     // setData is called in any case after fetch was successful
     // even if call was cancelled 
@@ -31,7 +32,10 @@ export function useApi(
 
     // reqParams like { query: { example: 1 }, path: { id: 4 }}
     const call = useCallback((reqParams, reqData, successCallback) => {
-        console.log("useApi call() triggered with:", { reqParams, reqData });
+        const safeReqData = reqData && typeof reqData === 'object'
+            ? { ...reqData, password: reqData.password ? '******' : undefined }
+            : reqData;
+        console.log("useApi call() triggered with:", { reqParams, safeReqData });
     
         if (lastCallRef.current)
             lastCallRef.current.cancel();
@@ -61,45 +65,68 @@ export function useApi(
                     headers['Content-Type'] = 'application/json';
     
                 if (cancelled) return;
-    
-                // console.log("Fetching:", parameterizedUrl);
 
                 // const response = await fetch(parameterizedUrl, {
                 //     method,
                 //     headers,
                 //     body: reqData ? JSON.stringify(reqData) : undefined,
                 // });
+
+                // if (reqData) {
+                //     console.log("🚀 POST payload being sent:", JSON.stringify(reqData, null, 2));
+                //     console.log('🚀 Sending fetch to', parameterizedUrl, 'with body:', reqData);
+                // }
+
+                // const response = await fetch(parameterizedUrl, {
+                //     method,
+                //     headers: {
+                //         "Authorization": userToken ? `Bearer ${userToken}` : undefined,
+                //         "Content-Type": reqData ? "application/json" : undefined,
+                //     },
+                //     body: reqData ? JSON.stringify(reqData) : undefined,
+                // });
+                const finalBody = typeof prepareBody === 'function'
+                    ? prepareBody(reqData)
+                    : reqData;
+
+                // console.log('📦 Final POST body after prepareBody:', finalBody);
+
                 const response = await fetch(parameterizedUrl, {
                     method,
                     headers: {
                         "Authorization": userToken ? `Bearer ${userToken}` : undefined,
-                        "Content-Type": reqData ? "application/json" : undefined,
+                        "Content-Type": finalBody ? "application/json" : undefined,
+                        // "Cache-Control": "no-cache"
                     },
-                    body: reqData ? JSON.stringify(reqData) : undefined,
+                    body: finalBody ? JSON.stringify(finalBody) : undefined,
                 });
     
                 // console.log("Response status:", response.status);
 
+                if (response.status === 304) {
+                    console.log("Received 304, skipping setFunc");
+                }
+
                 if (!cancelled) setStatus(response.status);
     
-                const resData = await response.json();
+                // const resData = await response.json();
+                let resData;
+                try {
+                    resData = await response.json();
+                } catch {
+                    console.error("useApi - resData await error!");
+                    resData = {};
+                }
                 // console.log("API Response Data:", resData);
     
                 if (response.ok) {
                     console.log("API call success, calling setData...");
-                    // if (setData)
-                    //     setData(cur => setFunc({
-                    //         cur, 
-                    //         params: reqParams,
-                    //         req: reqData, 
-                    //         res: resData,
-                    //     }));
                     if (setData) {
-                        // console.log("🛠 Calling setData function with:", resData);
+                        // console.log("🛠 Calling setData function with resData:", resData);
                         setData(cur => setFunc({
-                            cur, 
+                            cur,
                             params: reqParams,
-                            req: reqData, 
+                            req: reqData,
                             res: resData,
                         }));
                     } else {

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { postLoginApi, postLogoutApi } from './api';
+import { postLoginApi } from './api';
 
 import { useApi } from './useApi';
 
@@ -15,6 +15,15 @@ export function AuthContextProvider({ children }) {
     const setUser = useCallback(getResult => {
         _setUser(data => {
             const newData = getResult(data);
+
+            // Normalize keys if needed
+            if (newData?.user_id) {
+                newData.userId = newData.user_id;
+                delete newData.user_id;
+            }
+
+            // console.log("🔐 AuthContext setUser (normalized):", newData);
+
             if (newData?.token) {
                 if (rememberLoginRef.current)
                     localStorage.setItem(TOKEN_NAME, newData.token);
@@ -26,7 +35,7 @@ export function AuthContextProvider({ children }) {
     }, []);
 
     const [autoLoginState, postLogin] = useApi(postLoginApi, setUser);
-    const [, postLogout] = useApi(postLogoutApi);
+    // const [, postLogout] = useApi(postLogoutApi);
 
     useEffect(() => {
         const token = sessionStorage.getItem(TOKEN_NAME) || localStorage.getItem(TOKEN_NAME);
@@ -49,13 +58,13 @@ export function AuthContextProvider({ children }) {
     }, []);
 
     const logout = useCallback(() => {
-        postLogout(null, {
-            userId: user?.userId,
-        });
+        // postLogout(null, {
+        //     userId: user?.userId,
+        // });
         _setUser(null);
         sessionStorage.removeItem(TOKEN_NAME);
         localStorage.removeItem(TOKEN_NAME);
-    }, [postLogout, user?.userId]);
+    }, []);
 
     const value = useMemo(() => ({
         autoLoginState,
