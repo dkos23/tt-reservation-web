@@ -9,14 +9,10 @@ router.get('/', async (req, res) => {
     const values = [];
     let whereClause = [];
 
-    if (start) {
+    if (start && end) {
       values.push(start);
-      whereClause.push(`r.from_time >= $${values.length}`);
-    }
-
-    if (end) {
       values.push(end);
-      whereClause.push(`r.to_time <= $${values.length}`);
+      whereClause.push(`r.to_time > $1 AND r.from_time < $2`);
     }
 
     if (userId) {
@@ -50,7 +46,7 @@ router.get('/', async (req, res) => {
       ${whereSql}
       ORDER BY r.from_time ASC
     `, values);
-
+    
     res.json(result.rows);
   } catch (err) {
     console.error('Error fetching reservations:', err);

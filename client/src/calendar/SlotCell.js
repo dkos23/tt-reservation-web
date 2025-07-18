@@ -85,7 +85,7 @@ export function SlotCell({
                                 <div>{reservation.text}</div>
                             </>
                         ) : (
-                            <div>{reservation.text || reservation.name}</div>
+                            <div>{(reservation.text || '').trim() || reservation.name}</div>
                         )
                     )}
                 </div>

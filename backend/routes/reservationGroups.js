@@ -7,7 +7,7 @@ const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
 dayjs.extend(utc);
 
-// POST
+// POST /reservation-group
 router.post('/', async (req, res) => {
   // const { user_id, reservations, text, type } = req.body;
   const { reservations, text, type } = req.body;
@@ -73,8 +73,13 @@ router.post('/', async (req, res) => {
     // const after = await pool.query('SELECT * FROM reservation_groups');
     // console.log('DB now contains reservation_groups:', after.rows);
 
+    // const rows = (await pool.query(`
+    //   SELECT * FROM reservations
+    //   WHERE group_id = $1`, [groupId])).rows;
+    // console.log('POST /reservation-group Inserted reservations:', rows);
+
   } catch (e) {
-    console.error("Error in /reservation-group:", e);
+    console.error("Error POST /reservation-group:", e);
     await client.query('ROLLBACK');
     res.status(500).json({ error: e.message });
   } finally {

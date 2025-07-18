@@ -10,6 +10,17 @@
             "database": "ttreservation",
             "password": "password",
             "connectionTimeout": 30
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "PG Local postgres",
+            "database": "postgres",
+            "username": "postgres",
+            "password": "password",
+            "connectionTimeout": 20
         }
     ]
 }
