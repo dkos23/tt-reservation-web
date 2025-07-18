@@ -68,6 +68,25 @@
     background: #1890ff;
 }
 
+/* .admin {
+    background-color: orange;
+} */
+/* Orange with 70% opacity */
+.admin {
+  background-color: rgba(211, 84, 0, 0.7);
+  color: white;
+}
+/* darker orange with red hue */
+/* .admin {
+  background-color: #d35400;
+  color: white;
+} */
+/* same #d35400 but with 70% opacity */
+/* .admin {
+  background-color: rgba(211, 84, 0, 0.7);
+  color: white;
+} */
+
 .slot::before {
     content: '';
     display: block;

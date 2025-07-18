@@ -68,6 +68,7 @@ export function SlotCell({
                     // reserved: reservation?.type === RESERVATION_TYPES.NORMAL,
                     reserved: !!reservation && reservation.type !== RESERVATION_TYPES.DISABLE,
                     mine: user && user?.userId === reservation?.userId,
+                    admin: reservation?.admin,
                 })}
                 style={{ height: SLOT_HEIGHT_PX * rowSpan + CELL_PADDING_PX * 2 * (rowSpan - 1) }}
                 data-free-text="Frei"
