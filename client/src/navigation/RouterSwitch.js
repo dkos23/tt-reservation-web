@@ -14,6 +14,8 @@ const VerifyMailPage = lazy(() => import('../user/VerifyMailPage').then(m => ({ 
 const MyAccountPage = lazy(() => import('../user/MyAccountPage').then(m => ({ default: m.MyAccountPage })));
 const MyReservationsPage = lazy(() => import('../calendar/MyReservationsPage').then(m => ({ default: m.MyReservationsPage })));
 const RegisterPage = lazy(() => import('../user/RegisterPage').then(m => ({ default: m.RegisterPage })));
+const ForgotPasswordPage = lazy(() => import('../user/ForgotPasswordPage').then(m => ({ default: m.ForgotPasswordPage })));
+const ResetPasswordPage = lazy(() => import('../user/ResetPasswordPage').then(m => ({ default: m.ResetPasswordPage })));
 const StatsPage = lazy(() => import('../admin/StatsPage').then(m => ({ default: m.StatsPage })));
 const EditTemplatesPage = lazy(() => import('../admin/EditTemplatesPage').then(m => ({ default: m.EditTemplatesPage })));
 const UserManagementPage = lazy(() => import('../admin/UserManagementPage').then(m => ({ default: m.UserManagementPage })));
@@ -28,6 +30,8 @@ export function RouterSwitch() {
                 <Route path="/logout" element={<LogoutPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
 
                 <Route path="/admin/general" element={
                     <ProtectedRoute admin>

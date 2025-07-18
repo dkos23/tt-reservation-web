@@ -12,22 +12,11 @@ const BASE_PATH = '/api';
 export const getBaseDataApi = {
     url: `${BASE_PATH}/base-data`,
     setFunc: ({ res }) => {
-        console.log("🛠️ getBaseDataApi setFunc called with:", res);
+        // console.log("🛠️ getBaseDataApi setFunc called with:", res);
         return res;
     }
 };
 
-// export const patchConfigApi = {
-//     url: `${BASE_PATH}/config`,
-//     method: 'PATCH',
-//     setFunc: ({ cur, req }) => {
-//         console.log("🛠️ patchConfigApi setFunc called with:", { cur, req });
-//         return {
-//             ...cur,
-//             ...req,
-//         };
-//     },
-// };
 export const patchConfigApi = {
   url: `${BASE_PATH}/config`,
   method: 'PATCH',
@@ -111,7 +100,7 @@ export const postReservationGroupApi = {
             ...rest,
             reservations: mappedReservations,
         };
-        // console.log('📦 Final payload sent to backend:', fullPayload);
+        // console.log('📦 postReservationGroupApi payload sent to backend:', fullPayload);
         return fullPayload;
     },
     setFunc: ({ cur, res }) => {
@@ -258,7 +247,7 @@ export const postSendVerifyMailApi = {
 export const getTemplatesApi = {
   url: `${BASE_PATH}/templates`,
   setFunc: ({ res }) => {
-        console.log("🛠️ getTemplatesApi setFunc called with:", res);
+        // console.log("🛠️ getTemplatesApi setFunc called with:", res);
         return res;
     }
 };
@@ -275,7 +264,7 @@ export const putTemplateApi = {
   url: `${BASE_PATH}/templates/:key`,
   method: 'PUT',
   setFunc: ({ cur, req }) => {
-    console.log("🛠️ putTemplateApi setFunc called with:", cur, req);
+    // console.log("🛠️ putTemplateApi setFunc called with:", cur, req);
         return {
             ...cur,
             [req.key]: req,
@@ -294,4 +283,15 @@ export const putMailTemplateApi = {
         ...cur,
         [req.id]: req,
     }),
+};
+
+// password recovery
+export const postPasswordResetRequestApi = {
+  url: `${BASE_PATH}/password-reset-request`,
+  method: 'POST'
+};
+
+export const postPasswordResetApi = {
+  url: `${BASE_PATH}/password-reset`,
+  method: 'POST'
 };

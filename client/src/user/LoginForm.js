@@ -76,7 +76,7 @@ export function LoginForm() {
                 </Form.Item>
 
                 {/* TODO */}
-                <Link className={styles.forgotLink} to="/reset-password">
+                <Link className={styles.forgotLink} to="/forgot-password">
                     Password vergessen
                 </Link>
             </Form.Item>
