@@ -19,12 +19,12 @@ export function Footer({
                 </p>
             }
             <p>
-                {`©${dayjs().format('YYYY')} ${orgName} - v${version} - entwickelt von `}
+                {`©${dayjs().format('YYYY')} ${orgName} - v${version} - developed by `}
                 {/* {noLinks 
                     ? <span>Alexander&nbsp;D</span>
                     : <a target="_blank" rel="noopener noreferrer" href="https://github.com/dkos23/tt-reservation-web">Dalibor&nbsp;Kos</a>
                 } */}
-                <span>Dalibor Kos</span>
+                <span>Dalibor Kos @CoreSignal</span>
             </p>
         </>
     );
