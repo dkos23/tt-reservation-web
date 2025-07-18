@@ -1,14 +1,12 @@
 # Table Tennis Court Reservation System
 
-**WICHTIG: Dieses Projekt befindet sich noch in der Entwicklung.**
+**Dieses Projekt befindet sich noch in der Entwicklung.**
 
-*React SPA,, PostgeSQL*
+*React SPA, PostgreSQL*
 
 *License: AGPL*
 
-🇺🇸 Modern, open source tennis court reservation system that works on any cheap web-hosting plan. *GDPR compliant*
-
-🇩🇪 Modernes, Open Source Tennisplatz Reservierungssystem, das mit jedem günstigen Web-Hosting Anbieter funktioniert. *DSGVO konform*
+Modern, open source tennis court reservation system that works on any cheap web-hosting plan. *GDPR compliant*
 
 ## Languages / Sprachen
 
@@ -20,43 +18,14 @@
 ---
 ---
 
-# DE:
-
-## Funktionen
-
-* DSGVO konform
-* Kiosk Modus
-* // todo
-
-## Systemanforderungen
-
-* Web-Server (Apache, nginx, ...)
-* PostgreSQL Datenbank
-
-## Datenverbrauch im Kioskmodus
-
-Im Kioskmodus wird die Tabelle mit den Reservierungen automatisch aktualisiert.
-Im Regelfall ist eine solche Anfrage < 10kB.
-Das Zeitintervall für die Aktualisierungen kann manuell angegeben werden, indem der Kioskmodus mittels `/kiosk?update=x` aufgerufen wird. `x` gibt hierbei die Anzahl der Sekunden an. Der Standardwert ist eine Minute.
-
-Beispiel (x=300): Bei einem Durchschnitt von 10kB pro Anfrage ergibt sich für ein Aktualisierungsintervall von `x=300` (5 Minuten) ein Datenverbrauch von ca. 3MB pro Tag.
-
-&nbsp;
-
----
----
-
-# EN:
-
 ## Features
 
 * GDPR compliant
-* Kiosk Mode
 * // todo
 
 ## System requirements
 
-* Web-Server (Apache, nginx, ...)
+* express-Server
 * PostgreSQL Database
 
 &nbsp;
@@ -98,7 +67,6 @@ Beispiel (x=300): Bei einem Durchschnitt von 10kB pro Anfrage ergibt sich für e
 * [ ] automatische Anzeigenamen generieren (z.B. GastXXX)
 * [ ] Anzeigename/Guthaben in Navigationsleiste anzeigen (personaisieren) 
 * [ ] Dynamic page Title (React helmet? or SSR)
-
 
 ### tables
 

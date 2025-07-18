@@ -12,21 +12,21 @@ import { RouterSwitch } from "./navigation/RouterSwitch";
 import { appContext } from "./AppContext";
 import styles from "./App.module.css";
 
-const KioskPage = lazy(() =>
-  import("./kiosk/KioskPage").then((m) => ({ default: m.KioskPage }))
-);
-const DemoControls = lazy(() =>
-  import("./demo/DemoControls").then((m) => ({ default: m.DemoControls }))
-);
+// const KioskPage = lazy(() =>
+//   import("./kiosk/KioskPage").then((m) => ({ default: m.KioskPage }))
+// );
+// const DemoControls = lazy(() =>
+//   import("./demo/DemoControls").then((m) => ({ default: m.DemoControls }))
+// );
 
 function App() {
   const { config, state } = useContext(appContext);
   const lastAnnouncementRef = useRef(null);
 
 //   const basename = process.env.PUBLIC_URL;
-  const demoMode = process.env.REACT_APP_DEMO;
+  // const demoMode = process.env.REACT_APP_DEMO;
 
-  console.log("demoMode:" + demoMode);
+  // console.log("demoMode:" + demoMode);
   
 
   useEffect(() => {
@@ -55,14 +55,14 @@ function App() {
       <Layout>
         <Suspense fallback={<Ball visible preloader spin />}>
           <Routes>
-            <Route
+            {/* <Route
               path="/kiosk"
               element={
                 <Layout.Content className={styles.content}>
                   <KioskPage />
                 </Layout.Content>
               }
-            />
+            /> */}
 
             <Route
               path="*"
