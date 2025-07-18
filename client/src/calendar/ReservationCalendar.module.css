@@ -26,4 +26,13 @@
     display: flex;
     overflow-x: auto;
     overflow-y: hidden;
+    /* Enables smooth scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
+    /* Hides scrollbar in Firefox */
+    /* scrollbar-width: none; */
 }
+
+/* Hides scrollbar in Chrome/Safari */
+/* .tableScroller::-webkit-scrollbar {
+    display: none;
+} */

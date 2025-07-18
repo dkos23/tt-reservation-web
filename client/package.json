@@ -1,6 +1,6 @@
 {
   "name": "tt-reservation-web",
-  "version": "2.0.0-alpha.9",
+  "version": "1.0.5",
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
