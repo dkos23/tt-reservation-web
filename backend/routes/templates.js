@@ -43,20 +43,6 @@ router.get('/', async (req, res) => {
 });
 
 // PUT to create/update (admin only)
-// router.put('/:key', verifyToken, requireAdmin, async (req, res) => {
-//   const { key } = req.params;
-//   const { subject, body } = req.body;
-
-//   const { rows } = await pool.query(`
-//     INSERT INTO templates (key, subject, body)
-//     VALUES ($1, $2, $3)
-//     ON CONFLICT (key)
-//       DO UPDATE SET subject = EXCLUDED.subject, body = EXCLUDED.body, updated_at = NOW()
-//     RETURNING key, subject, body;
-//   `, [key, subject, body]);
-  
-//   res.json(rows[0]);
-// });
 router.put('/:key', verifyToken, requireAdmin, async (req, res) => {
   const { key } = req.params;
   const { subject, body } = req.body;

@@ -15,46 +15,6 @@ router.get('/', verifyToken, requireAdmin, async (req, res) => {
 // PATCH /api/config
 router.patch('/', verifyToken, requireAdmin, async (req, res) => {
   try {
-    // const {
-    //   announcement,
-    //   visibleHours,
-    //   orgName,
-    //   serverMail,
-    //   url,
-    //   reservationDaysInAdvance,
-    //   reservationMaxActiveCount,
-    //   timeZone
-    // } = req.body;
-
-    // // Convert camelCase to snake_case
-    // const q = `
-    //   UPDATE config SET
-    //     announcement = $1,
-    //     visible_hours = $2,
-    //     org_name = $3,
-    //     server_mail = $4,
-    //     url = $5,
-    //     reservation_days_in_advance = $6,
-    //     reservation_max_active_count = $7,
-    //     time_zone = $8
-    //   WHERE id = 1
-    //   RETURNING *;
-    // `;
-
-    // const values = [
-    //   announcement,
-    //   visibleHours,
-    //   orgName,
-    //   serverMail,
-    //   url,
-    //   reservationDaysInAdvance,
-    //   reservationMaxActiveCount,
-    //   timeZone
-    // ];
-
-    // const result = await pool.query(q, values);
-    // res.json(result.rows[0]);
-
     const allowedFields = [
       'announcement', 'visible_hours', 'org_name', 'server_mail',
       'url', 'reservation_days_in_advance', 'reservation_max_active_count', 'time_zone'
@@ -80,8 +40,8 @@ router.patch('/', verifyToken, requireAdmin, async (req, res) => {
     res.json(result.rows[0]);
   
     // LOG: Immediately after your log, select the record directly:
-    const after = await pool.query('SELECT * FROM config WHERE id = 1');
-    console.log('🔧 DB now contains:', after.rows[0]);
+    // const after = await pool.query('SELECT * FROM config WHERE id = 1');
+    // console.log('DB now contains config:', after.rows[0]);
   } catch (error) {
     console.error("config route error:", error);
   }
