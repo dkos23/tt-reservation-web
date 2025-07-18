@@ -7,17 +7,46 @@ const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
 dayjs.extend(utc);
 
+// POST
 router.post('/', async (req, res) => {
   // const { user_id, reservations, text, type } = req.body;
   const { reservations, text, type } = req.body;
   const token = req.headers.authorization?.split(' ')[1];
   const payload = jwt.verify(token, process.env.JWT_SECRET);
   const user_id = payload.userId;
+  const userRes = await pool.query('SELECT admin FROM users WHERE user_id = $1', [user_id]);
+  const isAdmin = userRes.rows[0]?.admin;
   
-
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
+
+    if (!isAdmin) {
+      // 🔎 Fetch max active limit
+      const configRes = await client.query(
+        'SELECT reservation_max_active_count FROM config LIMIT 1'
+      );
+      const maxActive = configRes.rows[0]?.reservation_max_active_count ?? Infinity;
+  
+      // Count user's current future reservations
+      const now = new Date();
+      const activeRes = await client.query(`
+        SELECT COUNT(*) FROM reservations r
+        JOIN reservation_groups g USING (group_id)
+        WHERE g.user_id = $1 AND r.from_time > $2
+      `, [user_id, now]);
+      const currentActive = parseInt(activeRes.rows[0].count, 10);
+      const requested = reservations.length;
+  
+      if (currentActive + requested > maxActive) {
+        await client.query('ROLLBACK');
+        return res.status(403).json({
+          message: 'too many active reservations',
+          value: currentActive + requested,
+          max: maxActive,
+        });
+      }
+    }
 
     // console.log("🔧 Creating group with:", { user_id, text, type });
     const groupRes = await client.query(
@@ -57,10 +86,46 @@ router.post('/', async (req, res) => {
 router.patch('/:groupId', async (req, res) => {
   const { groupId } = req.params;
   const { reason, text, reservations } = req.body;
+  const token = req.headers.authorization?.split(' ')[1];
+  const payload = jwt.verify(token, process.env.JWT_SECRET);
+  const user_id = payload.userId;
+
+  const userRes = await pool.query('SELECT admin FROM users WHERE user_id = $1', [user_id]);
+  const isAdmin = userRes.rows[0]?.admin;
 
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
+    if (!isAdmin) {
+      // Fetch max limit
+      const configRes = await client.query(
+        'SELECT reservation_max_active_count FROM config LIMIT 1'
+      );
+      const maxActive = configRes.rows[0]?.reservation_max_active_count ?? Infinity;
+  
+      // Count future reservations excluding this group
+      const now = new Date();
+      const activeRes = await client.query(`
+        SELECT COUNT(*) FROM reservations r
+        JOIN reservation_groups g USING (group_id)
+        WHERE g.user_id = $1
+          AND r.from_time > $2
+          AND r.group_id != $3
+      `, [user_id, now, groupId]);
+      const currentActive = parseInt(activeRes.rows[0].count, 10);
+      const requested = reservations.length;
+  
+      if (currentActive + requested > maxActive) {
+        await client.query('ROLLBACK');
+        return res.status(403).json({
+          message: 'too many active reservations',
+          value: currentActive + requested,
+          max: maxActive,
+        });
+      }
+    }
+
+    // continue if not admin
     await client.query('UPDATE reservation_groups SET text = $1 WHERE group_id = $2', [text, groupId]);
     await client.query('DELETE FROM reservations WHERE group_id = $1', [groupId]);
     for (const r of reservations) {

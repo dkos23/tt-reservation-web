@@ -42,7 +42,8 @@ router.get('/', async (req, res) => {
         g.text,
         g.type,
         g.user_id,
-        u.name
+        u.name,
+        u.admin
       FROM reservations r
       JOIN reservation_groups g USING (group_id)
       LEFT JOIN users u ON g.user_id = u.user_id
